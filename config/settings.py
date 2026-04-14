@@ -20,7 +20,9 @@ SECRET_KEY = config('SECRET_KEY', default='django-insecure-change-this-in-produc
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG can be set to False in production for security
-DEBUG = config('DEBUG', default=True, cast=bool)
+# We read it as string first to avoid casting issues with system env vars
+DEBUG_VALUE = config('DEBUG', default='True')
+DEBUG = DEBUG_VALUE.lower() in ('true', '1', 'yes')
 
 # ALLOWED_HOSTS - Set to '*' for beginner-friendly development
 # In production, replace with your actual domain names

@@ -248,7 +248,12 @@ Edit `.env` with your local PostgreSQL credentials.
 ### Step 5: Run Migrations
 
 ```bash
+# Using uv (recommended)
+uv run python manage.py makemigrations
 uv run python manage.py migrate
+
+# Or with Docker
+docker-compose exec web python manage.py migrate
 ```
 
 ### Step 6: Create Superuser (Optional - for admin access)
