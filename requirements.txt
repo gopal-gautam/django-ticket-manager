@@ -1,0 +1,16 @@
+# Django and Web Framework
+Django>=5.0,<6.0
+djangorestframework>=3.14,<4.0
+
+# PostgreSQL Database Driver
+psycopg2-binary>=2.9,<3.0
+
+# Redis Integration
+redis>=5.0,<6.0
+django-redis>=5.4,<6.0
+
+# Production WSGI Server
+gunicorn>=21.2,<23.0
+
+# Environment Variable Management
+python-decouple>=3.8,<4.0

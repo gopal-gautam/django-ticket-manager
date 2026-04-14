@@ -1,0 +1,15 @@
+[project]
+name = "django-ticket-manager"
+version = "0.1.0"
+description = "A beginner-friendly Django REST API for managing IT support tickets with PostgreSQL and Redis"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "django>=5.0,<6.0",
+    "djangorestframework>=3.14,<4.0",
+    "psycopg2-binary>=2.9,<3.0",
+    "redis>=5.0,<6.0",
+    "django-redis>=5.4,<6.0",
+    "gunicorn>=21.2,<23.0",
+    "python-decouple>=3.8,<4.0",
+]
