@@ -46,6 +46,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # Serve static files in production
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -126,6 +127,16 @@ STATIC_URL = 'static/'
 
 # Directory where static files will be collected for production
 STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+# WhiteNoise Configuration for serving static files in production
+# https://whitenoise.readthedocs.io/
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+# Enable Gzip compression for static files
+WHITENOISE_COMPRESS_ENABLED = True
+
+# Allow WhiteNoise to serve files even when Django DEBUG = False
+WHITENOISE_USE_FINDERS = True
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/6.0/ref/settings/#default-auto-field
