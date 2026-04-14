@@ -12,7 +12,7 @@ WORKDIR /app
 
 # Install system dependencies required by psycopg2 and other packages
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends libpq-dev gcc \
+    && apt-get install -y --no-install-recommends libpq-dev gcc dos2unix \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Python dependencies
@@ -23,8 +23,10 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 # Copy and make entrypoint script executable
+# Fix Windows line endings (CRLF -> LF) to prevent runtime errors
 COPY entrypoint.sh /app/entrypoint.sh
-RUN chmod +x /app/entrypoint.sh
+RUN dos2unix /app/entrypoint.sh \
+    && chmod +x /app/entrypoint.sh
 
 # Create non-root user for security
 RUN useradd -m appuser && chown -R appuser:appuser /app

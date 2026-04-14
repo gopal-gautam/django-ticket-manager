@@ -1,12 +1,9 @@
 #!/bin/bash
 
-# Entrypoint script that runs before the Django server starts
-# This script ensures the database is ready and migrations are applied
+set -e
 
 echo "Waiting for PostgreSQL to be ready..."
 
-# Wait for PostgreSQL to accept connections
-# This loops until it can successfully connect to the database
 until python -c "import psycopg2; psycopg2.connect(
     host='${POSTGRES_HOST}',
     port='${POSTGRES_PORT}',
@@ -20,16 +17,12 @@ done
 
 echo "PostgreSQL is available - running migrations"
 
-# Apply any pending database migrations
 python manage.py migrate --noinput
 
 echo "Migrations complete - collecting static files"
 
-# Collect static files for production
-# This gathers all static files from apps into STATIC_ROOT directory
 python manage.py collectstatic --noinput --clear
 
 echo "Static files collected - starting Django server"
 
-# Execute the command passed to docker (usually the Gunicorn command)
 exec "$@"
