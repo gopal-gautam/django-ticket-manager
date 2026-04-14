@@ -23,7 +23,13 @@ echo "PostgreSQL is available - running migrations"
 # Apply any pending database migrations
 python manage.py migrate --noinput
 
-echo "Migrations complete - starting Django server"
+echo "Migrations complete - collecting static files"
+
+# Collect static files for production
+# This gathers all static files from apps into STATIC_ROOT directory
+python manage.py collectstatic --noinput --clear
+
+echo "Static files collected - starting Django server"
 
 # Execute the command passed to docker (usually the Gunicorn command)
 exec "$@"
